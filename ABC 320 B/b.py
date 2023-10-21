@@ -8,23 +8,30 @@ import itertools as it
 import operator as op
 import copy as cp
 
-to_debug = True
+def palindrome(s):
+    l = 0
+    r = len(s) - 1
 
+    while l <= r:
+        if s[l] == s[r]:
+            l += 1
+            r -= 1
+        else:
+            return -1
+    return len(s)
+
+to_debug = False
 def solve():
-    n, m, a, b = inp_map(int)
-    x = inp_list(int)
-    mx = max(0, n - a + b)
-    count = [0] * n
-    for el in x:
-        count[el - 1] += 1
-    count.sort()
-    saved = 0
-    for el in count:
-        if el <= b:
-            b -= el
-            saved += 1
-        mx = max(saved, mx)
-    print(mx)
+    s = input()
+    res = 1
+
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            t = palindrome(s[i:j + 1])
+            # debug(i, j, t)
+            res = max(t, res)
+    
+    print(res)
 
 def main():
     t = 1
